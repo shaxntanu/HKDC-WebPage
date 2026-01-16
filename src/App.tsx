@@ -208,15 +208,18 @@ function App() {
           <div className="contact-grid">
             <div className="contact-item">
               <h4>Address</h4>
-              <p>123 Main Street, Your City</p>
+              <p>Shop No 8, Block C, Nirala Eden Park</p>
+              <p>Near Delhi Public School, Judges Enclave</p>
+              <p>Ahinsa Khand 2, Indirapuram</p>
+              <p>Ghaziabad, Uttar Pradesh 201014</p>
             </div>
             <div className="contact-item">
               <h4>Phone</h4>
-              <p>+1 (555) 123-4567</p>
+              <p>+91 90154 04372</p>
             </div>
             <div className="contact-item">
-              <h4>Email</h4>
-              <p>info@harekrishnadrycleaners.com</p>
+              <h4>Areas Served</h4>
+              <p>Indirapuram, Sector 63A</p>
             </div>
             <div className="contact-item">
               <h4>Hours</h4>
