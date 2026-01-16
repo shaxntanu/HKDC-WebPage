@@ -13,12 +13,12 @@ interface BookingForm {
 }
 
 const services = [
-  { id: 'dry-cleaning', name: 'Dry Cleaning', icon: '🧥', desc: 'Suits, dresses, delicate fabrics' },
-  { id: 'wash-fold', name: 'Wash & Fold', icon: '👕', desc: 'Everyday clothes' },
-  { id: 'alterations', name: 'Alterations', icon: '👗', desc: 'Tailoring & repairs' },
-  { id: 'household', name: 'Household Items', icon: '🛏️', desc: 'Curtains, bedding, upholstery' },
-  { id: 'express', name: 'Express Service', icon: '⚡', desc: 'Same-day turnaround' },
-  { id: 'stain-removal', name: 'Stain Removal', icon: '✨', desc: 'Specialized treatment' },
+  { id: 'dry-cleaning', name: 'Dry Cleaning', desc: 'Suits, dresses, and delicate fabrics' },
+  { id: 'wash-fold', name: 'Wash & Fold', desc: 'Everyday clothes and linens' },
+  { id: 'alterations', name: 'Alterations', desc: 'Professional tailoring and repairs' },
+  { id: 'household', name: 'Household Items', desc: 'Curtains, bedding, and upholstery' },
+  { id: 'express', name: 'Express Service', desc: 'Same-day turnaround available' },
+  { id: 'stain-removal', name: 'Stain Removal', desc: 'Specialized stain treatment' },
 ]
 
 function App() {
@@ -52,37 +52,42 @@ function App() {
     setSubmitted(true)
   }
 
+  const resetForm = () => {
+    setSubmitted(false)
+    setForm({ name: '', phone: '', email: '', address: '', pickupDate: '', pickupTime: '', services: [], specialInstructions: '' })
+  }
+
   if (submitted) {
     return (
       <div className="app">
         <header className="header">
           <div className="logo">
-            <span className="logo-icon">👔</span>
             <h1>Hare Krishna Dry Cleaners</h1>
           </div>
         </header>
         <main className="confirmation">
           <div className="confirmation-card">
-            <span className="check-icon">✅</span>
-            <h2>Pickup Scheduled!</h2>
-            <p>Thank you, {form.name}! We'll pick up your items on {form.pickupDate} at {form.pickupTime}.</p>
+            <div className="check-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h2>Pickup Scheduled</h2>
+            <p>Thank you, {form.name}. We will pick up your items on {form.pickupDate} between {form.pickupTime}.</p>
             <p>A confirmation has been sent to {form.email}</p>
-            <button className="btn btn-primary" onClick={() => { setSubmitted(false); setForm({ name: '', phone: '', email: '', address: '', pickupDate: '', pickupTime: '', services: [], specialInstructions: '' }) }}>
-              Book Another Pickup
-            </button>
+            <button className="btn btn-primary" onClick={resetForm}>Book Another Pickup</button>
           </div>
         </main>
       </div>
     )
   }
 
-
   return (
     <div className="app">
       <header className="header">
         <nav className="navbar">
           <div className="logo">
-            <span className="logo-icon">👔</span>
             <h1>Hare Krishna Dry Cleaners</h1>
           </div>
           <ul className="nav-links">
@@ -91,7 +96,15 @@ function App() {
             <li><a href="#contact">Contact</a></li>
             <li>
               <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)} aria-label="Toggle dark mode">
-                {darkMode ? '☀️' : '🌙'}
+                {darkMode ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                  </svg>
+                )}
               </button>
             </li>
           </ul>
@@ -101,9 +114,9 @@ function App() {
       <main>
         <section className="hero">
           <div className="hero-content">
-            <h2>Premium Dry Cleaning at Your Doorstep</h2>
-            <p>Professional care for your garments with free pickup and delivery</p>
-            <a href="#booking" className="btn btn-primary">Schedule Pickup</a>
+            <h2>Professional Garment Care</h2>
+            <p>Quality dry cleaning with convenient pickup and delivery service</p>
+            <a href="#booking" className="btn btn-primary">Schedule a Pickup</a>
           </div>
         </section>
 
@@ -112,7 +125,6 @@ function App() {
           <div className="services-grid">
             {services.map(service => (
               <div key={service.id} className="service-card">
-                <span className="service-icon">{service.icon}</span>
                 <h3>{service.name}</h3>
                 <p>{service.desc}</p>
               </div>
@@ -127,20 +139,20 @@ function App() {
               <h3>Contact Information</h3>
               <div className="form-grid">
                 <div className="form-group">
-                  <label htmlFor="name">Full Name *</label>
-                  <input type="text" id="name" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="Your name" />
+                  <label htmlFor="name">Full Name</label>
+                  <input type="text" id="name" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="phone">Phone Number *</label>
-                  <input type="tel" id="phone" required value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} placeholder="Your phone" />
+                  <label htmlFor="phone">Phone Number</label>
+                  <input type="tel" id="phone" required value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
-                  <input type="email" id="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} placeholder="your@email.com" />
+                  <label htmlFor="email">Email Address</label>
+                  <input type="email" id="email" required value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
                 </div>
                 <div className="form-group full-width">
-                  <label htmlFor="address">Pickup Address *</label>
-                  <input type="text" id="address" required value={form.address} onChange={e => setForm({...form, address: e.target.value})} placeholder="Full address" />
+                  <label htmlFor="address">Pickup Address</label>
+                  <input type="text" id="address" required value={form.address} onChange={e => setForm({...form, address: e.target.value})} />
                 </div>
               </div>
             </div>
@@ -149,13 +161,13 @@ function App() {
               <h3>Pickup Schedule</h3>
               <div className="form-grid">
                 <div className="form-group">
-                  <label htmlFor="pickupDate">Pickup Date *</label>
+                  <label htmlFor="pickupDate">Pickup Date</label>
                   <input type="date" id="pickupDate" required value={form.pickupDate} onChange={e => setForm({...form, pickupDate: e.target.value})} min={new Date().toISOString().split('T')[0]} />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="pickupTime">Preferred Time *</label>
+                  <label htmlFor="pickupTime">Preferred Time</label>
                   <select id="pickupTime" required value={form.pickupTime} onChange={e => setForm({...form, pickupTime: e.target.value})}>
-                    <option value="">Select time slot</option>
+                    <option value="">Select a time slot</option>
                     <option value="9:00 AM - 11:00 AM">9:00 AM - 11:00 AM</option>
                     <option value="11:00 AM - 1:00 PM">11:00 AM - 1:00 PM</option>
                     <option value="1:00 PM - 3:00 PM">1:00 PM - 3:00 PM</option>
@@ -172,7 +184,6 @@ function App() {
                 {services.map(service => (
                   <label key={service.id} className={`service-option ${form.services.includes(service.id) ? 'selected' : ''}`}>
                     <input type="checkbox" checked={form.services.includes(service.id)} onChange={() => handleServiceToggle(service.id)} />
-                    <span className="service-icon">{service.icon}</span>
                     <span className="service-name">{service.name}</span>
                   </label>
                 ))}
@@ -196,20 +207,20 @@ function App() {
           <h2>Contact Us</h2>
           <div className="contact-grid">
             <div className="contact-item">
-              <span>📍</span>
+              <h4>Address</h4>
               <p>123 Main Street, Your City</p>
             </div>
             <div className="contact-item">
-              <span>📞</span>
+              <h4>Phone</h4>
               <p>+1 (555) 123-4567</p>
             </div>
             <div className="contact-item">
-              <span>✉️</span>
+              <h4>Email</h4>
               <p>info@harekrishnadrycleaners.com</p>
             </div>
             <div className="contact-item">
-              <span>🕐</span>
-              <p>Mon-Sat: 8AM - 8PM</p>
+              <h4>Hours</h4>
+              <p>Mon - Sat: 8:00 AM - 8:00 PM</p>
             </div>
           </div>
         </section>
